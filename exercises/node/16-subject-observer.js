@@ -8,6 +8,14 @@ const subject = new Subject();
   2. Use the `subject` to subscribe to `data$`
 */
 
+subject.subscribe({
+  next (value) { console.log(value); },
+  complete() { console.log('done'); },
+});
+
+data$.subscribe(subject);
+
+
 /**
   NOTE: expected output
   0

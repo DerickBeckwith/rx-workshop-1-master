@@ -1,4 +1,7 @@
+import { Subscriber } from 'rxjs/Subscriber';
+
 const Resource = require('./fixtures/6-Resource');
+const Rx = require('rxjs/Rx');
 
 // TODO: create an observable with the `Observable.fromEvent` over the same
 // `Resource` we used in exercise 6.
@@ -12,7 +15,8 @@ resource.removeEventListener('data', handler); // stop listening for data events
 
 HINT: You'll probably have to create the `Resource` first.
 */
-
+const resource = new Resource();
+const source$ = Rx.Observable.fromEvent(resource, 'data');
 
 const subscription = source$.subscribe(
   x => console.log(x),
@@ -20,7 +24,7 @@ const subscription = source$.subscribe(
   () => console.info('done')
 );
 
-setTimeout(() => subscription.unsubscribe(), 2000);
+setTimeout(() => subscription.unsubscribe(), 4000);
 
 /**
 NOTE: output should be:
@@ -34,3 +38,18 @@ Resource: event listener added
 Resource: event listener removed
 Resource: closed
 */
+
+// cold observable is unicast - one producer for one consumer
+// hot observable is multicast - one producer for n consumers
+
+
+
+// cold observable since it's creating the data you subscriber to inside of the observable itself.
+const cold = new Observable(subscriber => {
+  const ws = new WebSocket(url);
+  ws.onmessage = e => subscriber.next(x);
+})
+
+const hot = new Observable(subscriber => {
+  const producer = new producer(); 
+})

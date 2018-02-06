@@ -45,7 +45,8 @@
         }
   */
 
-
+  dropClick$.mergeMap(e => addBall(svg))
+  .subscribe(x => console.log(x));
 
   // our stream of drop clicks
 }());

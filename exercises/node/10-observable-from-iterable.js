@@ -4,7 +4,12 @@ const Rx = require('rxjs/Rx');
 // that supports the iterable interface.
 const iterable = require('./fixtures/10-iterable');
 
+const { Observable } = Rx;
+const { from, of } = Observable;
+
 //TODO: create an observable the `data` array with `Observable.from`
+// const source$ = Rx.Observable.from(iterable);
+const source$ = from('hello world');
 
 console.log('start');
 source$.subscribe(

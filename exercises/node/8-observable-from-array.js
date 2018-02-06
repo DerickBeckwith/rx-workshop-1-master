@@ -1,8 +1,12 @@
+
 const Rx = require('rxjs/Rx');
 
 const data = ['apples', 'bananas', 'oranges'];
+// const { from } = Observable;
 
 //TODO: create an observable the `data` array with `Observable.from`
+const source$ = Rx.Observable.from(data);
+// const source$ = from(data);
 
 console.log('start');
 source$.subscribe(

@@ -12,15 +12,21 @@ const subB = sourceB$.subscribe(x => console.log(x));
 const subC = sourceC$.subscribe(x => console.log(x));
 
 // TODO: manage subscriptions by building a single parent subscription
+const subscription = new Subscription();
+subscription.add(subA);
+subscription.add(subB);
+subscription.add(subC);
 
 setTimeout(() => {
   // TODO: unsubscribe from `subA` so that it's removed from your
   //       parent subscription
+  subA.unsubscribe();
 }, 900);
 
 setTimeout(() => {
   // TODO: unsubscribe from all remaining subscriptions (`subB` and `subC`)
   //       using a single parent subscription
+  subscription.unsubscribe();
 }, 1300);
 
 /**

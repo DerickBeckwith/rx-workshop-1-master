@@ -6,7 +6,9 @@ const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   3. Sum them
 */
 
-const result;
+const result = arr.filter(x => x % 2 === 1)
+.map(x => x * 2)
+.reduce((acc, x) => acc + x)
 
 console.log(result);
 

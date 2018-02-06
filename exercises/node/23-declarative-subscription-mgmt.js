@@ -1,4 +1,7 @@
 const noisyUnsubscriber = require('./fixtures/22-noisy-unsubscriber');
+const { timer } = require('rxjs/observable/timer');
+const { merge } = require('rxjs/observable/merge');
+const { takeUntil } = require('rxjs/operators');
 
 // NOTE: Setup
 const sourceA$ = noisyUnsubscriber('a');
@@ -13,6 +16,17 @@ const sourceC$ = noisyUnsubscriber('c');
   2. unsubscribe from `sourceA$` after 900ms
   3. unsubscribe from the other two after 1300ms
 */
+
+merge(
+  sourceA$.pipe(takeUntil(timer(900))),
+  sourceB$,
+  sourceC$
+)
+.pipe(takeUntil(timer(1300)))
+.subscribe(
+  x => console.log(x)
+);
+
 /**
   NOTE: expected output
   a: 0

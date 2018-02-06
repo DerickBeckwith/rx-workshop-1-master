@@ -14,6 +14,16 @@ const fizzbuzzObserver = createLoggingObserver('fizzbuzz');
   3. Notify `fizzbuzzObserver` of all values from `scarce$` divisible by 3 AND 5.
 */
 
+const multi$ = scarce$.share();
+
+// const subject = new Subject();
+
+multi$.pipe(filter(n => n % 3 === 0)).subscribe(fizzObserver);
+multi$.pipe(filter(n => n % 5 === 0)).subscribe(buzzObserver);
+multi$.pipe(filter(n => n % 15 === 0)).subscribe(fizzbuzzObserver);
+
+// scarce$.subscribe(subject);
+
 /**
   NOTE: expected output
   fizz 0

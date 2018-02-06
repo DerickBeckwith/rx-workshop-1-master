@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs/Observable';
+
 const Rx = require('rxjs/Rx');
 const Resource = require('./fixtures/6-Resource');
 
@@ -13,7 +15,24 @@ resource.addEventListener('data', handler); // listen for data events
 resource.removeEventListener('data', handler); // stop listening for data events
 */
 
-const source$; // <-- set me!
+new Observable(subscriber => {
+  /* setup logic to observe something */
+
+  return () => {
+    /* teardown logic here */
+  }
+});
+
+const source$ = new Rx.Observable(subscriber => {
+  const handler = e => subscriber.next(e);
+  const resource = new Resource(); // start the resource;
+  resource.addEventListener('data', handler); // listen for data events
+
+  return () => {
+    resource.removeEventListener('data', handler); // stop listening for data events
+  }
+}); // <-- set me!
+
 const subscription = source$.subscribe(
   x => console.log(x),
   err => console.error(err),

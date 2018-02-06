@@ -23,13 +23,17 @@ const { meatspaceSystem, temp$ } = require('./fixtures/18-meatspace');
   1. Notify all incoming users of the latest temperature.
   2. Be sure the users don't have to wait for the first value.
 */
+const subject = new BehaviorSubject(0);
+
+temp$.subscribe(subject);
 
 meatspaceSystem((user) => {
   // TODO: notify users with `user.sendTemperature(temp)`
-
+  const sub = subject.subscribe(temp => user.sendTemperature(temp));
   // `user.onleave` is called when the user stop watching values
   user.onleave = () => {
     // TODO: stop sending temps to the user when they leave
+    sub.unsubscribe();
   }
 });
 

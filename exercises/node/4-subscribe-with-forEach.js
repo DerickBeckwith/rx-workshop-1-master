@@ -6,3 +6,14 @@ const data$ = require('./fixtures/1-data.js');
 
 // NOTE: If `forEach` returns a promise, how an we unsubscribe?
 //   We can't (yet! perhaps in the future of Rx?)
+
+data$.forEach(v => console.log(v))
+    .then(
+        () => console.log('done'),
+        err => console.log(err)
+    );
+
+
+async function foo() {
+    await data$.forEach(x => doAThing(x));
+}
